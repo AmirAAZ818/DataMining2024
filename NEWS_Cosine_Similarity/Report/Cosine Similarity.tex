@@ -1,0 +1,170 @@
+\documentclass{article}
+\linespread{1.25}
+
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage[top = 1cm, right=2cm, left=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{xepersian}
+\settextfont{B Nazanin}
+\setlatinmonofont{CMU Serif}
+%\setlatinmonofont{Times New Roman}
+\setlatintextfont{Times New Roman}
+
+% Set Latin Modern font for the bullets in itemizea
+\newfontfamily\latinbullet{Latin Modern Roman}
+
+
+
+\title{گزارش تکلیف 
+	\lr{Cosine Similarity}
+}
+\author{درس داده‌کاوی}
+\date{
+	امیرحسین ابوالحسنی\\
+	400405003
+}
+
+
+% Commands
+\newcommand{\column}[1]{\lr{\textit{#1}}}
+\renewcommand{\labelitemi}{{\latinbullet\textbullet}} % Use the bullet from Latin Modern font
+
+\begin{document}
+	\maketitle
+	
+	\section*{مقدمه}
+	برای ارزیابی شباهت (\lr{Similarity}) و یا تفاوت (\lr{Disimilarity}) دو بردار از معیار‌های متفاوتی می‌توان استفاده نمود. یکی از این معیار‌ها تحت عنوان 
+	\lr{Cosine Similarity}
+	شناخته می‌شود که از این رابطه محاسبه می‌گردد:\\
+	$$
+	\cos \theta = \frac{\vec{u} \cdot \vec{v}}{|| \vec{u} ||\cdot|| \vec{v} ||}
+	$$\\
+	که $\cos \theta$ همان 
+	\lr{Cosine Similarity}
+	می‌باشد.
+	
+	حال با توجه به این متریک برای بررسی شباهت دو بردار، سعی در شباهت‌ سنجی دو متن خبری فارسی می‌گردد. برای این کار سه خبر از خبرگزاری تسنیم تهیه شده است که موضوعات آنها طبق این جدول می‌باشد.
+	
+	
+	\begin{center}
+		\begin{tabular}{ |c|c|c| }
+			\hline
+			شماره خبر & نام خبر &‌ موضوع\\
+			\hline
+			\hline
+			 خبر 1 & \href{https://www.tasnimnews.com/fa/news/1403/07/18/3174479/%D8%A2%D8%B2%D9%85%D9%88%D9%86-%D9%85%DB%8C-%D8%AF%D8%A7%D9%86%DB%8C%D9%85-%DA%86%D8%B7%D9%88%D8%B1-%D9%85%D9%82%D8%A7%D8%A8%D9%84-%D8%A7%D8%B2%D8%A8%DA%A9%D8%B3%D8%AA%D8%A7%D9%86-%D8%A8%D8%A7%D8%B2%DB%8C-%DA%A9%D9%86%DB%8C%D9%85}{آزمون: می‌دانیم چطور مقابل ازبکستان بازی کنیم} & ورزشی - فوتبال - ایران\\
+			\hline
+			خبر 2 & \href{https://www.tasnimnews.com/fa/news/1403/07/14/3172106/%D8%AC%D9%85%D8%B9-%D8%A2%D9%88%D8%B1%DB%8C-3-%D9%BE%D8%AA%D8%A7%D8%A8%D8%A7%DB%8C%D8%AA-%D8%AF%D8%A7%D8%AF%D9%87-%D9%87%D8%A7%DB%8C-%D9%85%D8%A7%D9%87%D9%88%D8%A7%D8%B1%D9%87-%D8%A7%DB%8C-%D8%AA%D9%88%D8%B3%D8%B7-%D8%B3%D8%A7%DB%8C%D8%AA-%D9%88%D8%B1%D8%A7%D9%85%DB%8C%D9%86}{جمع‌آوری ۳ "پتابایت" داده‌های ماهواره‌ای توسط سایت ورامین} & فضا و نجوم\\
+			\hline
+			خبر 3 & \href{https://www.tasnimnews.com/fa/news/1403/07/18/3174432/%D8%A8%DA%AF%DB%8C%D8%B1%DB%8C%D8%B3%D8%AA%D8%A7%DB%8C%D9%86-%D8%AF%D8%B1-%D9%BE%D8%A7%DB%8C%D8%A7%D9%86-%D9%81%D8%B5%D9%84-%D9%85%D9%86%DA%86%D8%B3%D8%AA%D8%B1%D8%B3%DB%8C%D8%AA%DB%8C-%D8%B1%D8%A7-%D8%AA%D8%B1%DA%A9-%D9%85%DB%8C-%DA%A9%D9%86%D8%AF}{بگیریستاین در پایان فصل منچسترسیتی را ترک می‌کند} & ورزشی - فوتبال - جهان\\
+			\hline
+		\end{tabular}
+	\end{center}
+	\vspace{10pt}
+	در این تکلیف، هرکدام از این اخبار شباهتشان با یکدیگر سنجیده می‌شود. انتظار می‌رود دو خبر ورزشی بیشترین مقدار شباهت را داشته باشند.
+	
+	
+	
+	
+	\section*{کتابخانه‌ها}
+	در این تکلیف برای بخش 
+	\lr{Web Scraping}
+	از کتابخانه‌های:
+	\begin{itemize}
+		\item \lr{Beautiful Soup}
+		\item \lr{Requests}
+	\end{itemize}
+	و برای پردازش متن از کتابخانه‌های: 
+	\begin{itemize}
+		\item \lr{hazm} : پردازش متن فارسی
+		\item \lr{nltk} : شناسایی ترکیب‌های موردعلاقه
+		\item \lr{re}
+	\end{itemize}
+	و برای محاسبه 
+	\lr{Cosine Similarity}
+	از کتابخانه 
+	\lr{Numpy}
+	استفاده شده است.
+	
+	\section*{\lr{Web Scraping}}
+	ابتدا با استفاده از کتابخانه 
+	\lr{Requests}
+	صفحه 
+	\lr{HTML}
+	گرفته شده، سپس با استفاده از کتابخانه
+	\lr{Beautiful Soup}
+	این
+	\lr{HTML}
+	پارس شده و متن خبر استخراج می‌گردد.
+	
+	\section*{پیش ‌پردازش متن}
+	\subsection{\lr{Normalization}}
+	ابتدا متن خام، نرمالایز
+	\footnote{\lr{Normalize}}
+	می ‌شود تا حروف و کلمات اضافی و غیرقابل استفاده از آن حذف شود.
+	
+	\subsection{\lr{Tokenization}}
+	 در این مرحله، ابتدا متن را جمله جمله کرده، و سپس کلمه کلمه می‌کنیم تا تمامی کلمات موجود در متن را به شکل لیست در اختیار داشته باشیم.
+	\subsection{برچسب گذاری دستوری}
+	 به هر کلمه یک برچسب تخصیص داده می‌شود که نشان دهنده نقش دستوری آن کلمه در آن جمله می‌باشد.\\
+	 برای مثال: \\
+	 \textbf{
+	 	اسم - فعل - قید - ...
+	 }
+	 
+	\section*{بازیابی کلمات کلیدی} 
+	گرامرهایی تعریف می‌کنیم که عباراتی با این گرامر برای ما اهمیت دارند. برای مثال گرامر 
+	\begin{center}
+		\lr{NP:
+			{<NOUN.*><ADJ.*>?}    \# Noun(s) + Adjective(optional)}
+	\end{center}
+	به معنی عباراتی هستند که از یک اسم و یک صفت تشکیل شده اند.
+	
+	\section*{\lr{Vectorization}}
+	به استفاده از مدل
+	\lr{Sec2Vec}
+	دنباله کلمات کلیدی را به فضای برداری می‌بریم.
+	\section*{محاسبه شباهت کسینوسی}
+	با توجه به فرمول ارائه شده و کتابخانه 
+	\lr{Numpy}
+	این مقدار را برای دو بردار محاسبه می‌کنیم.
+	\section*{نتیجه گیری}
+	شباهت کسینوسی هر دو خبر به صورت زیر است:
+	\begin{center}
+		\begin{tabular}{c|ccc}
+			& خبر 1 & خبر 2 & خبر 3 \\
+			\hline
+			خبر 1 & 1 & 34.0 & 36.0 \\
+			خبر 2 &   & 1 & 22.0 \\
+			خبر 3 &   &   & 1
+		\end{tabular}
+	\end{center}
+	همانطور که انتظار می‌رفت، خبر 1 و 3 بیشترین شباهت را نسبت به هر دو خبر دیگری دارند.
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+\end{document}
