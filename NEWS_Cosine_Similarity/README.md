@@ -64,9 +64,9 @@ Keyword phrases from each article were embedded into a fixed-size vector using a
 
 Pairwise cosine similarity was computed using the formula:
 
-\[
+$$
 \text{similarity} = \frac{\vec{A} \cdot \vec{B}}{||\vec{A}|| \cdot ||\vec{B}||}
-\]
+$$
 
 ## Results
 
